@@ -20,7 +20,7 @@ st.write(f"""
 ### 過去 **{days}日間** のGAFA株価
 """)
 
-@st.cache
+@st.cache_data
 def get_data(days, tickers):
     df = pd.DataFrame()
     for company in tickers.keys():
@@ -40,12 +40,11 @@ try:
     """)
     ymin, ymax = st.sidebar.slider(
         '範囲を指定してください。',
-        0.0, 3500.0, (0.0, 3500.0)
+        0.0, 3500.0, (0.0, 1000.0)
     )
 
     tickers = {
         'apple': 'AAPL',
-        'facebook': 'FB',
         'google': 'GOOGL',
         'microsoft': 'MSFT',
         'netflix': 'NFLX',
@@ -55,7 +54,7 @@ try:
     companies = st.multiselect(
         '会社名を選択してください。',
         list(df.index),
-        ['google', 'amazon', 'facebook', 'apple']
+        ['google', 'amazon', 'apple','microsoft','netflix']
     )
 
     if not companies:
